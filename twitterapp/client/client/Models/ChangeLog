@@ -1,5 +1,10 @@
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
 
+	* TwitterUser.cs:
+	  Added user model
+
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
 	* TwittUser.cs:
 	  
 
