@@ -33,6 +33,13 @@ namespace RESTClient
                 Console.WriteLine("No user by id.");
             }
 
+            // Get last n tweets by user
+            int n = 7, i = 1;
+            var tweets = twitterManager.LastNTweetsFromUser(user, n);
+            foreach (var tweet in tweets) {
+                Console.WriteLine("{0}) {1} @ {2}", i++, tweet.Text, tweet.CreatedAt.ToShortDateString());
+            }
+
             Console.Read();
         }
         /*Entry point of the program*/

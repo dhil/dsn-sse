@@ -1,5 +1,10 @@
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
 
+	* ITwitterService.cs:
+	  
+
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
 	* Exceptions.cs:
 	* ServiceFactory.cs:
 	* ITwitterService.cs:

@@ -1,6 +1,13 @@
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
 
 	* ITweet.cs:
+	* ModelFactory.cs:
+	* IModelFactory.cs:
+	  
+
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
+	* ITweet.cs:
 	  
 
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>

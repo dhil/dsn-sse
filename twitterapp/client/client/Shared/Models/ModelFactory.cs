@@ -35,6 +35,13 @@ namespace Shared.Models {
         public ITwitterUser TwitterUser() {
             return TwitterUser(null, null, null, null, null);
         }
+
+        public ITweet Tweet(string id, ITwitterUser author, string text, DateTime createdAt) {
+            Tweet tweet = new Tweet {
+                Id = id, Author = author, Text = text, CreatedAt = createdAt
+            };
+            return tweet;
+        }
         #endregion
 
     }

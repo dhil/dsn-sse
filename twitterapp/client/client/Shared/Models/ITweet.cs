@@ -3,9 +3,10 @@ using System;
 namespace Shared.Models {
     public interface ITweet {
         ITwitterUser Author { get; }
-        DateTime Date { get; set; }
+        DateTime CreatedAt { get; set; }
         string Text { get; set; }
         string Id { get; set; }
+        string UserId { get; set; }
     }
 }
 

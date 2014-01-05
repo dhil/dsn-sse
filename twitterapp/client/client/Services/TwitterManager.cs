@@ -83,6 +83,31 @@ namespace Services {
             }
             return tu;
         }
+
+        public List<ITweet> LastNTweetsFromUser(string screenName, int n) {
+            // Fetch from Twitter
+            List<ITweet> tweets = new List<ITweet>();
+            try {
+                IEnumerable<Status> statuses = from status in Context.Status
+                                               where status.Type == StatusType.User && status.ScreenName == screenName && status.Count == n
+                                               select status;
+                // Get author as object
+                ITwitterUser author = FindUserByScreenName(screenName);
+                // Project statuses to tweets
+                tweets = statuses.Select(t => {
+                    return Produce.Tweet(t.StatusID, author, t.Text, t.CreatedAt);
+                }).ToList();
+            } catch (TwitterQueryException e) {
+                throw new Exception("Fatal error: Invalid twitter query.", e);
+            } catch (Exception e) {
+                throw new Exception("Unhandled exception occurred.", e);
+            }
+            return tweets;
+        }
+
+        public List<ITweet> LastNTweetsFromUser(ITwitterUser user, int n) {
+            return LastNTweetsFromUser(user.ScreenName, n);
+        }
         #endregion
 
         #region Cache / Identity map lookup
