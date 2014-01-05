@@ -6,7 +6,7 @@ using LinqToTwitter;
 using Services;
 
 namespace Shared.Services {
-    public class ServiceFactory {
+    public class ServiceFactory : IServiceFactory {
         #region Instance variables
         private static ServiceFactory _instance = null;
         private Dictionary<string, object> IdentityMap = null;
@@ -29,7 +29,7 @@ namespace Shared.Services {
         #endregion
 
         #region Factory methods
-        public TwitterManager TwitterManager(string credentials_config) {
+        public ITwitterService TwitterManager(string credentials_config) {
             // Look-up the object in cache
             if (IdentityMap.ContainsKey(credentials_config))
                 return (TwitterManager)IdentityMap[credentials_config];
@@ -65,6 +65,10 @@ namespace Shared.Services {
             TwitterManager twitterManager = new TwitterManager(auth);
             IdentityMap.Add(credentials_config, twitterManager);
             return twitterManager;
+        }
+
+        public object RestManager() {
+            return null;
         }
         #endregion
     }
