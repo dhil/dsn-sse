@@ -1,53 +1,28 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using LinqToTwitter;
+using System.Text;
+using System.Xml;
+using System.Xml.Serialization;
 
-namespace RESTClient {
-    public class TwittManager {
-        #region Instance variables
+namespace RESTClient
+{
+    public static class TwittManager
+    {
 
-        #endregion
+        /*Retrieve a twitt user from a given screen name, see https://dev.twitter.com/docs/api/1/get/users/show*/
+        public static TwittUser GetTwittUser(string screenName)
+        {
+            string uri = "https://api.twitter.com/1/users/show.xml?screen_name=" + screenName;
+            XmlDocument doc;
+            doc = RestManager.GetXmlResponse(uri);
+            if (doc == null)
+                return null;
 
-        #region Properties
-        protected virtual TwitterContext Context { get; set; }
-        #endregion
-
-        #region Constructors
-        public TwittManager(ITwitterAuthorizer auth) {
-            try {
-                Context = new TwitterContext(auth);
-            } catch (Exception e) {
-                throw new Exception("Could not instantiate a valid Twitter context from given auth.", e);
-            }
-        }
-        #endregion
-
-        #region Methods
-        public virtual TwittUser FindTwitterUserByScreenname(string screenname) {
-            if (screenname == null)
-                throw new ArgumentNullException("screenname", "Cannot lookup 'null' name.");
-
-            TwittUser tu = null;
-            try {
-                User user = (from tweet in Context.User
-                             where tweet.Type == UserType.Show && tweet.ScreenName == screenname
-                             select tweet).FirstOrDefault();
-                // Populate TwittUser model
-                tu = new TwittUser(user.UserID, user.Name, user.ScreenName, user.Location, user.Description);
-            } catch (TwitterQueryException e) {
-                throw new Exception("Fatal error: Invalid twitter query.", e);
-            } catch (Exception e) {
-                throw new Exception("Unhandled exception occurred.", e);
-            }
+            XmlNode user = doc.SelectSingleNode("user");
+            TwittUser tu = new TwittUser(user["id"].InnerText, user["name"].InnerText, user["screen_name"].InnerText,
+                    user["location"].InnerText, user["description"].InnerText);
             return tu;
         }
-        #endregion
-
-        #region Legacy
-        public static TwittUser GetTwittUser(string screenName) {
-            return null;
-        }
-        #endregion
     }
 }
-

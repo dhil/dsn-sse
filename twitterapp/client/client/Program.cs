@@ -6,18 +6,23 @@ using System.Xml;
 using System.IO;
 using LinqToTwitter;
 
+using Shared.Services;
+using Services;
+
 namespace RESTClient
 {
     class Program {
         public static void Main(string[] args) {
-            TwittManager twittManager = TwitterFactory.Produce.TwitterManager("twitterapp.conf");
-            var user = twittManager.FindTwitterUserByScreenname("dhillerstrom");
+            TwitterManager twitterManager = TwitterFactory.Produce.TwitterManager("twitterapp.conf");
+            var user = twitterManager.FindTwitterUserByScreenname("dhillerstrom");
 
             if (user != null) {
                 user.printOut();
             } else {
                 Console.WriteLine("No user.");
-            }           
+            }
+
+            Console.Read();
         }
         /*Entry point of the program*/
   /*      static void Main(string[] args)

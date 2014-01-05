@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using LinqToTwitter;
 
-namespace RESTClient {
+using Services;
+
+namespace Shared.Services {
     public class TwitterFactory {
         #region Instance variables
         private static TwitterFactory _instance = null;
@@ -27,10 +29,10 @@ namespace RESTClient {
         #endregion
 
         #region Factory methods
-        public TwittManager TwitterManager(string credentials_config) {
+        public TwitterManager TwitterManager(string credentials_config) {
             // Look-up the object in cache
             if (IdentityMap.ContainsKey(credentials_config))
-                return (TwittManager)IdentityMap[credentials_config];
+                return (TwitterManager)IdentityMap[credentials_config];
 
             // Get consumer key & secret
             string key, secret;
@@ -60,9 +62,9 @@ namespace RESTClient {
             }
 
             // Instantiate Twitter manager object & store it in cache
-            TwittManager twittManager = new TwittManager(auth);
-            IdentityMap.Add(credentials_config, twittManager);
-            return twittManager;
+            TwitterManager twitterManager = new TwitterManager(auth);
+            IdentityMap.Add(credentials_config, twitterManager);
+            return twitterManager;
         }
         #endregion
     }
