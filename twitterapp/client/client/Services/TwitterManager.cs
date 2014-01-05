@@ -2,12 +2,13 @@ using System;
 using System.Linq;
 using LinqToTwitter;
 
-using Models;
+using Shared.Models;
+using Shared.Services;
 
 namespace Services {
-    public class TwitterManager {
+    public class TwitterManager : ITwitterService {
         #region Instance variables
-
+        private IModelFactory Produce = ModelFactory.Produce;
         #endregion
 
         #region Properties
@@ -25,17 +26,17 @@ namespace Services {
         #endregion
 
         #region Methods
-        public virtual TwitterUser FindTwitterUserByScreenname(string screenname) {
-            if (screenname == null)
+        public virtual ITwitterUser FindUserByScreenName(string screenName) {
+            if (screenName == null)
                 throw new ArgumentNullException("screenname", "Cannot lookup 'null' name.");
 
-            TwitterUser tu = null;
+            ITwitterUser tu = null;
             try {
                 User user = (from tweet in Context.User
-                             where tweet.Type == UserType.Show && tweet.ScreenName == screenname
+                             where tweet.Type == UserType.Show && tweet.ScreenName == screenName
                              select tweet).FirstOrDefault();
                 // Populate TwitterUser model
-                tu = new TwitterUser(user.UserID, user.Name, user.ScreenName, user.Location, user.Description);
+                tu = Produce.TwitterUser(user.UserID, user.Name, user.ScreenName, user.Location, user.Description);
             } catch (TwitterQueryException e) {
                 throw new Exception("Fatal error: Invalid twitter query.", e);
             } catch (Exception e) {

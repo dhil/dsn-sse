@@ -13,11 +13,12 @@ namespace RESTClient
 {
     class Program {
         public static void Main(string[] args) {
-            TwitterManager twitterManager = TwitterFactory.Produce.TwitterManager("twitterapp.conf");
-            var user = twitterManager.FindTwitterUserByScreenname("dhillerstrom");
+           ITwitterService twitterManager = ServiceFactory.Produce.TwitterManager("twitterapp.conf");
+            var user = twitterManager.FindUserByScreenName("dhillerstrom");
 
             if (user != null) {
-                user.printOut();
+                Console.WriteLine("{0}", user.ToString());
+                Console.WriteLine("XML:\n{0}", user.ToXmlString());
             } else {
                 Console.WriteLine("No user.");
             }

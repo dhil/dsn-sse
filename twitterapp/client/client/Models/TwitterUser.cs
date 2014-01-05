@@ -5,19 +5,36 @@ using System.Text;
 using System.Xml.Serialization;
 using System.IO;
 
+using Shared.Models;
+
 namespace Models
 {
     /*This class is the data model for a twitt user*/
     /*Serializable enable to serialize this object*/
     [Serializable()]
-    public class TwitterUser
+    public class TwitterUser : ITwitterUser
     {
-        /*Fields are declared public for conveniance*/
-        public string id;
-        public string name;
-        public string screenName;
-        public string location;
-        public string description;
+        #region ITwitterUser implementation
+        public string Id {
+            get; set;
+        }
+
+        public string Name {
+            get; set;
+        }
+
+        public string ScreenName {
+            get; set;
+        }
+
+        public string Location {
+            get; set;
+        }
+
+        public string Description {
+            get; set;
+        }
+        #endregion
 
         /*Empty constructor required to serialize*/
         public TwitterUser() { }
@@ -25,35 +42,33 @@ namespace Models
         /*Basic contructor*/
         public TwitterUser(string id, string name, string screenName, string location, string description)
         {
-            this.id = id;
-            this.name = name;
-            this.screenName = screenName;
-            this.location = location;
-            this.description = description;
+            this.Id = id;
+            this.Name = name;
+            this.ScreenName = screenName;
+            this.Location = location;
+            this.Description = description;
         }
 
         /*Print the object in clear text*/
-        public void printOut()
-        {
-            Console.WriteLine("Id: " + this.id);
-            Console.WriteLine("Name: " + this.name);
-            Console.WriteLine("Screen Name: " + this.screenName);
-            Console.WriteLine("Location: " + this.location);
-            Console.WriteLine("Description: " + this.description);
+        public override string ToString() {
+            return string.Format("{0,11}: {1}\n{2,11}: {3}\n{4,11}: {5}\n{6,11}: {7}\n{8,11}: {9}", 
+                                 "Id", this.Id, 
+                                 "Name", this.Name, 
+                                 "ScreenName", this.ScreenName, 
+                                 "Location", this.Location, 
+                                 "Description", this.Description
+                                 );
         }
 
         /*Serialize the object to an xml string*/
-        public string toXmlString()
-        {
+        public string ToXmlString() {
             XmlSerializer xs = new XmlSerializer(this.GetType());
 
-            using (StringWriter writer = new StringWriter())
-            {
+            using (StringWriter writer = new StringWriter()) {
                 xs.Serialize(writer, this);
 
                 return writer.ToString();
             }
-
         }
     }
 }

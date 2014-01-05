@@ -1,0 +1,8 @@
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
+	* ITwitterUser.cs:
+	* ModelFactory.cs:
+	* IModelFactory.cs:
+	* IXmlSerializable.cs:
+	  
+
