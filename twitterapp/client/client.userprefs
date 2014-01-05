@@ -1,24 +1,26 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="client/Shared/Services/ITwitterService.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="client/Program.cs" Line="19" Column="29" />
-      <File FileName="client/Shared/Services/ServiceFactory.cs" Line="1" Column="1" />
-      <File FileName="client/Shared/Services/ITwitterService.cs" Line="6" Column="23" />
-      <File FileName="client/Models/TwitterUser.cs" Line="26" Column="23" />
-      <File FileName="client/Shared/Services/TwitterFactory.cs" Line="35" Column="32" />
-      <File FileName="client/Services/TwitterManager.cs" Line="29" Column="40" />
+      <File FileName="client/Program.cs" Line="34" Column="14" />
+      <File FileName="client/Shared/Services/ITwitterService.cs" Line="10" Column="30" />
+      <File FileName="client/Models/TwitterUser.cs" Line="6" Column="58" />
+      <File FileName="client/Models/Tweet.cs" Line="13" Column="85" />
+      <File FileName="client/Shared/Models/ITweet.cs" Line="6" Column="27" />
+      <File FileName="client/Services/TwitterManager.cs" Line="98" Column="76" />
+      <File FileName="client/Shared/Models/ModelFactory.cs" Line="44" Column="10" />
+      <File FileName="client/Shared/Models/IModelFactory.cs" Line="6" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="client" expanded="True">
+          <Node name="client" expanded="True" selected="True">
             <Node name="Models" expanded="True" />
+            <Node name="Presentation" expanded="True" />
             <Node name="Services" expanded="True" />
             <Node name="Shared" expanded="True">
-              <Node name="Services" expanded="True">
-                <Node name="ITwitterService.cs" selected="True" />
-              </Node>
+              <Node name="Models" expanded="True" />
+              <Node name="Services" expanded="True" />
             </Node>
           </Node>
         </State>
