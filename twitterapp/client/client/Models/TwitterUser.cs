@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Serialization;
-using System.IO;
 
 using Shared.Models;
 
-namespace Models
-{
-    /*This class is the data model for a twitt user*/
-    /*Serializable enable to serialize this object*/
-    [Serializable()]
-    public class TwitterUser : ITwitterUser
-    {
+namespace Models {
+    public class TwitterUser : SelfXmlSerializableObject, ITwitterUser {
         #region ITwitterUser implementation
         public string Id {
             get; set;
@@ -49,7 +39,7 @@ namespace Models
             this.Description = description;
         }
 
-        /*Print the object in clear text*/
+        /* Generate pretty printable string representation of the object */
         public override string ToString() {
             return string.Format("{0,11}: {1}\n{2,11}: {3}\n{4,11}: {5}\n{6,11}: {7}\n{8,11}: {9}", 
                                  "Id", this.Id, 
@@ -58,17 +48,6 @@ namespace Models
                                  "Location", this.Location, 
                                  "Description", this.Description
                                  );
-        }
-
-        /*Serialize the object to an xml string*/
-        public string ToXmlString() {
-            XmlSerializer xs = new XmlSerializer(this.GetType());
-
-            using (StringWriter writer = new StringWriter()) {
-                xs.Serialize(writer, this);
-
-                return writer.ToString();
-            }
         }
     }
 }

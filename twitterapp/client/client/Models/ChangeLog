@@ -1,5 +1,12 @@
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
 
+	* Tweet.cs:
+	* TwitterUser.cs:
+	* SelfXmlSerializableObject.cs:
+	  
+
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
 	* TwitterUser.cs:
 	  
 

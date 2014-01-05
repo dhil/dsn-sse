@@ -59,6 +59,10 @@
     <Compile Include="Shared\Services\IServiceFactory.cs" />
     <Compile Include="Shared\Models\IModelFactory.cs" />
     <Compile Include="Shared\Models\IXmlSerializable.cs" />
+    <Compile Include="Shared\Services\Exceptions.cs" />
+    <Compile Include="Models\SelfXmlSerializableObject.cs" />
+    <Compile Include="Shared\Models\ITweet.cs" />
+    <Compile Include="Models\Tweet.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

@@ -21,6 +21,16 @@ namespace RESTClient
                 Console.WriteLine("XML:\n{0}", user.ToXmlString());
             } else {
                 Console.WriteLine("No user.");
+                return;
+            }
+
+            // Now by ID
+            var userById = twitterManager.FindUserById(user.Id);
+            if (userById != null) {
+                Console.WriteLine("{0}", userById.ToString());
+                Console.WriteLine("Reference equality? {0}", user == userById);
+            } else {
+                Console.WriteLine("No user by id.");
             }
 
             Console.Read();

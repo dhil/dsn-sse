@@ -58,7 +58,7 @@ namespace Shared.Services {
                 };
                 auth.Authorize();
             } catch (Exception e) {
-                throw new Exception("Authorization exception: " + e.Message, e);
+                throw new AuthenticationException("Authorization exception: " + e.Message, e);
             }
 
             // Instantiate Twitter manager object & store it in cache

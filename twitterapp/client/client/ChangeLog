@@ -7,6 +7,12 @@
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
 
 	* Program.cs:
+	* client.csproj:
+	  
+
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
+	* Program.cs:
 	* TwitterUser.cs:
 	* TwittManager.cs:
 	* TwittManagerBK.cs:
