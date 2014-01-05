@@ -1,0 +1,6 @@
+/home/dh/Development/dsn-sse/twitterapp/client/client/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/dh/Development/dsn-sse/twitterapp/client/client/bin/Release/SimpleRESTClient.exe.mdb
+/home/dh/Development/dsn-sse/twitterapp/client/client/bin/Release/SimpleRESTClient.exe
+/home/dh/Development/dsn-sse/twitterapp/client/client/obj/x86/Release/SimpleRESTClient.exe
+/home/dh/Development/dsn-sse/twitterapp/client/client/obj/x86/Release/SimpleRESTClient.exe.mdb
+/home/dh/Development/dsn-sse/twitterapp/client/client/bin/Release/LinqToTwitter.dll
