@@ -1,10 +1,10 @@
 using System;
 
-using Models;
+using Shared.Models;
 
 namespace Shared.Services {
-    public interface TwitterService {
-        TwitterUser FindUserByScreenname(string screenname);
+    public interface ITwitterService {
+        ITwitterUser FindUserByScreenName(string screenName);
     }
 }
 

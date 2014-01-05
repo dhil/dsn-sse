@@ -1,5 +1,12 @@
 2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
 
+	* TwitterFactory.cs:
+	* ServiceFactory.cs:
+	* ITwitterService.cs:
+	  
+
+2014-01-05  Daniel Hillerström  <dhildotnet@gmail.com>
+
 	* ServiceFactory.cs:
 	* TwitterFactory.cs:
 	* TwitterService.cs:

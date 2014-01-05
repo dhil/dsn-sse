@@ -6,23 +6,23 @@ using LinqToTwitter;
 using Services;
 
 namespace Shared.Services {
-    public class TwitterFactory {
+    public class ServiceFactory {
         #region Instance variables
-        private static TwitterFactory _instance = null;
+        private static ServiceFactory _instance = null;
         private Dictionary<string, object> IdentityMap = null;
         #endregion
 
         #region Constructors
-        internal TwitterFactory() {
+        internal ServiceFactory() {
             IdentityMap = new Dictionary<string, object>();
         }
         #endregion
 
         #region Properties -- Instance getter
-        public static TwitterFactory Produce {
+        public static ServiceFactory Produce {
             get { 
                 if (_instance == null)
-                    _instance = new TwitterFactory();
+                    _instance = new ServiceFactory();
                 return _instance;
             }
         }
