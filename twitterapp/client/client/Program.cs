@@ -14,7 +14,7 @@ namespace RESTClient
     class Program {
         public static void Main(string[] args) {
            ITwitterService twitterManager = ServiceFactory.Produce.TwitterManager("twitterapp.conf");
-            var user = twitterManager.FindUserByScreenName("dhillerstrom");
+            var user = twitterManager.FindUserByScreenName("arsenal");
 
             if (user != null) {
                 Console.WriteLine("{0}", user.ToString());

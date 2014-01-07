@@ -1,20 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="client/RestManager.cs">
     <Files>
-      <File FileName="client/Program.cs" Line="34" Column="14" />
-      <File FileName="client/Shared/Services/ITwitterService.cs" Line="10" Column="30" />
-      <File FileName="client/Models/TwitterUser.cs" Line="6" Column="58" />
-      <File FileName="client/Models/Tweet.cs" Line="13" Column="85" />
-      <File FileName="client/Shared/Models/ITweet.cs" Line="6" Column="27" />
-      <File FileName="client/Services/TwitterManager.cs" Line="98" Column="76" />
-      <File FileName="client/Shared/Models/ModelFactory.cs" Line="44" Column="10" />
-      <File FileName="client/Shared/Models/IModelFactory.cs" Line="6" Column="36" />
+      <File FileName="client/Program.cs" Line="22" Column="21" />
+      <File FileName="client/Shared/Services/ITwitterService.cs" Line="1" Column="1" />
+      <File FileName="client/Models/TwitterUser.cs" Line="1" Column="1" />
+      <File FileName="client/Models/Tweet.cs" Line="1" Column="1" />
+      <File FileName="client/Shared/Models/ITweet.cs" Line="1" Column="1" />
+      <File FileName="client/Services/TwitterManager.cs" Line="1" Column="1" />
+      <File FileName="client/Shared/Models/ModelFactory.cs" Line="1" Column="1" />
+      <File FileName="client/Shared/Models/IModelFactory.cs" Line="1" Column="1" />
+      <File FileName="client/RestManager.cs" Line="1" Column="1" />
+      <File FileName="client/TwittManager.cs" Line="1" Column="1" />
+      <File FileName="client/Util.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="client" expanded="True" selected="True">
+          <Node name="client" expanded="True">
             <Node name="Models" expanded="True" />
             <Node name="Presentation" expanded="True" />
             <Node name="Services" expanded="True" />
@@ -22,6 +25,7 @@
               <Node name="Models" expanded="True" />
               <Node name="Services" expanded="True" />
             </Node>
+            <Node name="RestManager.cs" selected="True" />
           </Node>
         </State>
       </Pad>
