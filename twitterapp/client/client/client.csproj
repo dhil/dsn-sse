@@ -63,6 +63,8 @@
     <Compile Include="Models\SelfXmlSerializableObject.cs" />
     <Compile Include="Shared\Models\ITweet.cs" />
     <Compile Include="Models\Tweet.cs" />
+    <Compile Include="Services\RestManager.cs" />
+    <Compile Include="Shared\Services\IRestService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
