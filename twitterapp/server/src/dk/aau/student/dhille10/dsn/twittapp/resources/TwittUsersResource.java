@@ -34,7 +34,7 @@ public class TwittUsersResource {
 	@Produces({MediaType.APPLICATION_XML})
 	public List<TwittUser> getUsers() {
 		List<TwittUser> tus = new ArrayList<TwittUser>();
-		tus.addAll(TwittStore.instance.getTuP().values());
+		tus.addAll(TwitterStore.instance.getTuP().values());
 		return tus; 
 
 	}
@@ -43,16 +43,22 @@ public class TwittUsersResource {
 	@Path("count")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getTuCount() {
-		int count = TwittStore.instance.getTuP().size();
+		int count = TwitterStore.instance.getTuP().size();
 		return String.valueOf(count);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
+	//@Consumes(MediaType.TEXT_XML)
 	public Response newTu(JAXBElement<TwittUser> jaxbMessage) 
 			throws IOException {
+		
 		TwittUser tu = jaxbMessage.getValue();
-		TwittStore.instance.getTuP().put(tu.getId(), tu);
+		System.out.println("[Message] isNil: " + jaxbMessage.isNil() + " " + jaxbMessage.toString());
+		System.out.println("User: " + tu.getScreenName());
+		System.out.println("Description: " + tu.getDescription());
+		TwitterStore.instance.getTuP().put(tu.getId(), tu);
+		
 		return Response.status(201).build();
 	}
 

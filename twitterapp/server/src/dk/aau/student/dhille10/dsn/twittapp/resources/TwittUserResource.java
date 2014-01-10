@@ -37,7 +37,7 @@ public class TwittUserResource {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public TwittUser getUser() {
-		TwittUser tu = TwittStore.instance.getTuP().get(id);
+		TwittUser tu = TwitterStore.instance.getTuP().get(id);
 		if(tu==null)
 			throw new NotFoundException("No such TwittUser.");
 		return tu;
@@ -55,20 +55,20 @@ public class TwittUserResource {
 		Response res;
 		if(!tu.getId().equals(id))
 			tu.setId(id);
-		if(TwittStore.instance.getTuP().containsKey(tu.getId())) {
+		if(TwitterStore.instance.getTuP().containsKey(tu.getId())) {
 			res = Response.noContent().build();
 		} else {
 			res = Response.created(uriInfo.getAbsolutePath()).build();
 		}
-		TwittStore.instance.getTuP().get(tu.getId()).setDescription(tu.getDescription());
+		TwitterStore.instance.getTuP().get(tu.getId()).setDescription(tu.getDescription());
 		return res;
 	}
 
 	@DELETE
 	public void deleteUser() {
-		if(!TwittStore.instance.getTuP().containsKey(id))
+		if(!TwitterStore.instance.getTuP().containsKey(id))
 			throw new NotFoundException("No such TwittUser.");
-		TwittStore.instance.getTuP().remove(id);
+		TwitterStore.instance.getTuP().remove(id);
 	}
 
 }
