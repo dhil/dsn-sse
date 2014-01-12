@@ -18,6 +18,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
 
+import com.sun.jersey.api.NotFoundException;
+
 import dk.aau.student.dhille10.dsn.twittapp.models.*;
 import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 
@@ -38,6 +40,16 @@ public class TwittUsersResource {
 		tus.addAll(TwitterStore.instance.getTuP().values());
 		return tus; 
 
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces({MediaType.APPLICATION_XML})
+	public TwittUser getUser(@PathParam("id") String id) {
+		if (TwitterStore.instance.getTuP().containsKey(id))
+			return TwitterStore.instance.getTuP().get(id);
+		else
+			throw new NotFoundException();
 	}
 
 	@GET

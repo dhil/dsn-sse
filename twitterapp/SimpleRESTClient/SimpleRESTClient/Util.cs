@@ -34,19 +34,16 @@ namespace RESTClient
             Console.WriteLine("12: Delete a Twitt status.");
             bool p = false;
             int choice;
-            do
-            {
+            do {
                 Console.WriteLine("Enter your choice:");
                 p = int.TryParse(Console.ReadLine(), out choice);
             } while (choice < 0 || choice > 12 || !p);
 
             return choice;
-
         }
 
         /*Forward a twitt user to the board*/
-        public static void printTwittUser()
-        {
+        public static void printTwittUser() {
             Console.WriteLine("Enter the screen name of the twitt user you want to print out:");
             string screenName = Console.ReadLine();
 
@@ -56,8 +53,7 @@ namespace RESTClient
         }
 
         /*Print all the twitt users from the board*/
-        public static void printTwittUsersFromBoard()
-        {
+        public static void printTwittUsersFromBoard() {
             string uri = Util.boardUri + "/twittusers";
 
             XmlDocument doc;
@@ -69,14 +65,11 @@ namespace RESTClient
 
             xnlist = doc.SelectNodes("twittUsers/twittUser");
 
-            foreach (XmlNode xn in xnlist)
-            {
+            foreach (XmlNode xn in xnlist) {
                 XmlSerializer xs = new XmlSerializer(typeof(TwittUser), new XmlRootAttribute() { ElementName = "twittUser" });
                 TwittUser tu = (TwittUser)xs.Deserialize(new XmlNodeReader(xn));
                 tu.printOut();
             }
-
-
         }
 
         /*Print a specified twitt user from the board*/
@@ -105,8 +98,7 @@ namespace RESTClient
         }
 
         /*Forward a twitt user to the board*/
-        public static void forwardTwittUser()
-        {
+        public static void forwardTwittUser() {
             Console.WriteLine("Enter the screen name of the twitt user you want to forward:");
             string screenName = Console.ReadLine();
 
@@ -121,14 +113,12 @@ namespace RESTClient
             int n;
             string description;
 
-            do
-            {
+            do {
                 Console.WriteLine("Enter the id of the twitt user you want to modify:");
                 n = int.Parse(Console.ReadLine());
             } while (n < 1);
 
-            do
-            {
+            do {
                 Console.WriteLine("Enter the new description:");
                 description = Console.ReadLine();
             } while (description == null);
@@ -137,12 +127,9 @@ namespace RESTClient
             String uri = Util.boardUri + "/twittusers/" + n.ToString();
             XmlReader xr;
 
-            try
-            {
+            try {
                 xr = XmlReader.Create(uri);
-            }
-            catch (WebException we)
-            {
+            } catch (WebException we) {
                 HttpWebResponse res = (HttpWebResponse)we.Response;
                 Console.WriteLine(res.StatusCode.ToString());
                 return;
@@ -156,8 +143,7 @@ namespace RESTClient
         }
 
         /*Delete a twitt status*/
-        public static void deleteTwittUser()
-        {
+        public static void deleteTwittUser() {
             Console.WriteLine("Enter the id of the user to delete:");
             string id = Console.ReadLine();
             string uri = Util.boardUri + "/twittusers/" + id;
@@ -185,7 +171,7 @@ namespace RESTClient
             TwittUser tu = TwittManager.GetTwittUser(name);
 
             if (tu != null) {
-                RestManager.PostXmlRequest(boardUri + "/twittusers", tu.toXmlString());
+                RestManager.PostXmlRequest(Util.boardUri + "/twittusers", tu.toXmlString());
                 List<TwittStatus> statuses = TwittManager.GetLastNStatus(name, n);
                 statuses.ForEach(st => RestManager.PostXmlRequest(Util.boardUri + "/twittstatuses", st.toXmlString()));
             }
@@ -195,7 +181,6 @@ namespace RESTClient
             Console.Write("Enter user id: ");
             string id = Console.ReadLine();
 
-            
             string uri = Util.boardUri + "/twittstatuses/user/" + id;
 
             XmlDocument doc;
