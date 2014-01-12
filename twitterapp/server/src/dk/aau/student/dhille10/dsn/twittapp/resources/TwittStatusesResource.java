@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -16,6 +18,8 @@ import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import javax.xml.bind.JAXBElement;
+
+import com.sun.jersey.api.NotFoundException;
 
 import dk.aau.student.dhille10.dsn.twittapp.models.*;
 import dk.aau.student.dhille10.dsn.twittapp.storage.*;
@@ -74,5 +78,33 @@ public class TwittStatusesResource {
 	public TwittStatusResource getMessage(
 			@PathParam("id") String id) {
 		return new TwittStatusResource(uriInfo, request, id);
+	}
+	
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_XML)
+	public TwittStatus getTwittStatus(@PathParam("id") String id) {
+		if (TwitterStore.instance.getStP().containsKey(id))
+			return TwitterStore.instance.getStP().get(id);
+		else
+			throw new NotFoundException();
+	}
+	
+	@DELETE
+	@Path("{id}")
+	public Response deleteSt(@PathParam("id") String id) {
+		if (TwitterStore.instance.getStP().containsKey(id))
+			TwitterStore.instance.getStP().remove(id);
+		
+		return Response.status(200).build();
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_XML)
+	public Response changeStatus(JAXBElement<TwittStatus> jaxbMessage) {
+		TwittStatus st = jaxbMessage.getValue();
+		TwitterStore.instance.getStP().get(st.getId()).setText(st.getText());
+		return Response.status(200).build();
 	}
 }

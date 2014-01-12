@@ -58,7 +58,7 @@ namespace RESTClient
         public static HttpWebResponse PostXmlRequest(string uri, string postData)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-            request.Method = "Post";
+            request.Method = "POST";
             request.ContentType = "application/xml";
             XmlDocument doc = new XmlDocument();
 
@@ -90,7 +90,7 @@ namespace RESTClient
         public static HttpWebResponse PutXmlRequest(string uri, string putData)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-            request.Method = "Put";
+            request.Method = "PUT";
             request.ContentType = "application/xml";
             XmlDocument doc = new XmlDocument();
 
@@ -100,18 +100,14 @@ namespace RESTClient
 
             HttpWebResponse res;
 
-            try
-            {
+            try {
                 res = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException webEx)
-            {
+            } catch (WebException webEx) {
                 res = (HttpWebResponse)webEx.Response;
 
                 Console.WriteLine(res.StatusCode.ToString());
 
                 res.Close();
-
                 return null;
             }
 
@@ -119,21 +115,17 @@ namespace RESTClient
         }
 
         /*Performs a Delete request on a given uri*/
-        public static void DeleteRequest(string uri)
-        {
+        public static void DeleteRequest(string uri) {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
             request.Method = "DELETE";
 
-            Console.WriteLine(uri);
+            //Console.WriteLine(uri);
 
             HttpWebResponse res;
 
-            try
-            {
+            try {
                 res = (HttpWebResponse)request.GetResponse();
-            }
-            catch (WebException webEx)
-            {
+            } catch (WebException webEx) {
                 res = (HttpWebResponse)webEx.Response;
 
                 Console.WriteLine(res.StatusCode.ToString());

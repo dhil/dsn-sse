@@ -45,7 +45,7 @@ public class TwittStatusResource {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response putUserDescription(JAXBElement<TwittStatus> jaxbMessage) {
+	public Response putStatusText(JAXBElement<TwittStatus> jaxbMessage) {
 		TwittStatus st = jaxbMessage.getValue();
 		return putStatus(st);
 	}
@@ -65,10 +65,9 @@ public class TwittStatusResource {
 	}
 
 	@DELETE
-	public void deleteUser() {
+	public void deleteStatus() {
 		if(!TwitterStore.instance.getTuP().containsKey(id))
-			throw new NotFoundException("No such TwittUser.");
-		TwitterStore.instance.getTuP().remove(id);
+			throw new NotFoundException("No such TwittStatus.");
+		TwitterStore.instance.getStP().remove(id);
 	}
-
 }

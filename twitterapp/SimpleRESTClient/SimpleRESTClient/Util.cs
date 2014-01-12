@@ -25,10 +25,13 @@ namespace RESTClient
             Console.WriteLine("3: Print specified Twitt User from the board.");
             Console.WriteLine("4: Print N last statuses from specificed screen name.");
             Console.WriteLine("5: Print all statuses from specified user id from the board.");
-            Console.WriteLine("6: Forward one Twitt User from specified screen name to the board.");
-            Console.WriteLine("7: Forward N last statuses from specified screen name to the board.");
-            Console.WriteLine("8: Modify a Twitt User description from the board.");
-            Console.WriteLine("9: Delete twitt user");
+            Console.WriteLine("6: Print a specific Twitt status from the board.");
+            Console.WriteLine("7: Forward one Twitt User from specified screen name to the board.");
+            Console.WriteLine("8: Forward N last statuses from specified screen name to the board.");
+            Console.WriteLine("9: Modify a Twitt User description from the board.");
+            Console.WriteLine("10: Modify a Twitt status text from the board.");
+            Console.WriteLine("11: Delete Twitt user.");
+            Console.WriteLine("12: Delete a Twitt status.");
             bool p = false;
             int choice;
             do
@@ -114,8 +117,7 @@ namespace RESTClient
 
 
         /*Modify the description of a specified twitt user*/
-        public static void changeTwittUser()
-        {
+        public static void changeTwittUser() {
             int n;
             string description;
 
@@ -180,8 +182,13 @@ namespace RESTClient
             Console.Write("Enter N: ");
             int n = int.Parse(Console.ReadLine());
 
-            List<TwittStatus> statuses = TwittManager.GetLastNStatus(name, n);
-            statuses.ForEach(st => RestManager.PostXmlRequest(Util.boardUri + "/twittstatuses", st.toXmlString()));
+            TwittUser tu = TwittManager.GetTwittUser(name);
+
+            if (tu != null) {
+                RestManager.PostXmlRequest(boardUri + "/twittusers", tu.toXmlString());
+                List<TwittStatus> statuses = TwittManager.GetLastNStatus(name, n);
+                statuses.ForEach(st => RestManager.PostXmlRequest(Util.boardUri + "/twittstatuses", st.toXmlString()));
+            }
         }
 
         public static void printAllStatusesFromBoardByUserId() {
@@ -204,6 +211,80 @@ namespace RESTClient
                 XmlSerializer xs = new XmlSerializer(typeof(TwittStatus), new XmlRootAttribute() { ElementName = "twittStatus" });
                 TwittStatus st = (TwittStatus)xs.Deserialize(new XmlNodeReader(xn));
                 st.printOut();
+            }
+        }
+
+        public static void printSpecificTwittStatusFromBoard() {
+            TwittStatus st;
+
+            Console.WriteLine("Enter the id of the twitt status you want to retrieve:");
+            string id = Console.ReadLine();
+
+            string uri = Util.boardUri + "/twittstatuses/" + id;
+
+            XmlReader xr;
+
+            try {
+                xr = XmlReader.Create(uri);
+            } catch (WebException we) {
+                HttpWebResponse res = (HttpWebResponse)we.Response;
+                Console.WriteLine(res.StatusCode.ToString());
+                return;
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(TwittStatus), new XmlRootAttribute("twittStatus"));
+            st = (TwittStatus)xs.Deserialize(xr);
+
+            st.printOut();
+        }
+
+        public static void changeTwittStatus() {
+            string id;
+            string text;
+            int n;
+
+            do {
+                Console.WriteLine("Enter the id of the twitt status you want to modify:");
+                n = int.Parse(Console.ReadLine());
+            } while (n < 1);
+            id = n.ToString();
+
+            do {
+                Console.WriteLine("Enter the new text:");
+                text = Console.ReadLine();
+            } while (text == null);
+
+
+            String uri = Util.boardUri + "/twittstatuses/" + id;
+            XmlReader xr;
+
+            try {
+                xr = XmlReader.Create(uri);
+            } catch (WebException we) {
+                HttpWebResponse res = (HttpWebResponse)we.Response;
+                Console.WriteLine(res.StatusCode.ToString());
+                return;
+            }
+
+            XmlSerializer xs = new XmlSerializer(typeof(TwittStatus), new XmlRootAttribute() { ElementName = "twittStatus" });
+            TwittStatus st = (TwittStatus)xs.Deserialize(xr);
+            st.text = text;
+
+            RestManager.PutXmlRequest(boardUri + "/twittstatuses", st.toXmlString());
+        }
+
+        public static void deleteTwittStatus() {
+            Console.Write("Enter id of Twitt Status: ");
+            string id = Console.ReadLine();
+
+            string uri = Util.boardUri + "/twittstatuses/" + id;
+
+            try {
+                RestManager.DeleteRequest(uri);
+            } catch (WebException we) {
+                HttpWebResponse res = (HttpWebResponse)we.Response;
+                Console.WriteLine(res.StatusCode.ToString());
+                return;
             }
         }
     }

@@ -20,32 +20,29 @@ namespace RESTClient
 
                 switch (choice)
                 {
-                    case 1:
-                        Util.printTwittUser();
+                    case 1: Util.printTwittUser();
                         break;
-                        case 2:
-                        Util.printTwittUsersFromBoard();
+                    case 2: Util.printTwittUsersFromBoard();
                         break;
-                        case 3:
-                        Util.printTwittUserFromBoard();
+                    case 3: Util.printTwittUserFromBoard();
                         break;
-                    case 4:
-                        Util.printNLastStatuses();
+                    case 4: Util.printNLastStatuses();
                         break;
-                    case 5:
-                        Util.printAllStatusesFromBoardByUserId();
+                    case 5: Util.printAllStatusesFromBoardByUserId();
                         break;
-                        case 6:
-                        Util.forwardTwittUser();
+                    case 6: Util.printSpecificTwittStatusFromBoard();
                         break;
-                    case 7:
-                        Util.forwardNStatuses();
+                    case 7: Util.forwardTwittUser();
                         break;
-                        case 8:
-                        Util.changeTwittUser();
+                    case 8: Util.forwardNStatuses();
                         break;
-                        case 9:
-                        Util.deleteTwittUser();
+                    case 9: Util.changeTwittUser();
+                        break;
+                    case 10: Util.changeTwittStatus();
+                        break;
+                    case 11: Util.deleteTwittUser(); 
+                        break;
+                    case 12: Util.deleteTwittStatus();
                         break;
                 }
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -49,14 +50,14 @@ public class TwittUsersResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	//@Consumes(MediaType.TEXT_XML)
 	public Response newTu(JAXBElement<TwittUser> jaxbMessage) 
 			throws IOException {
 		
 		TwittUser tu = jaxbMessage.getValue();
-		System.out.println("[Message] isNil: " + jaxbMessage.isNil() + " " + jaxbMessage.toString());
-		System.out.println("User: " + tu.getScreenName());
-		System.out.println("Description: " + tu.getDescription());
+		Boolean exists = TwitterStore.instance.getTuP().containsKey(tu.getId());
+		if (exists)
+			return Response.status(202).build();
+		
 		TwitterStore.instance.getTuP().put(tu.getId(), tu);
 		
 		return Response.status(201).build();
@@ -66,5 +67,14 @@ public class TwittUsersResource {
 	public TwittUserResource getMessage(
 			@PathParam("id") String id) {
 		return new TwittUserResource(uriInfo, request, id);
+	}
+	
+	@DELETE
+	@Path("{id}")
+	public Response deleteTu(@PathParam("id") String id) {
+		if (TwitterStore.instance.getTuP().containsKey(id))
+			TwitterStore.instance.getTuP().remove(id);
+		
+		return Response.status(200).build();
 	}
 }
