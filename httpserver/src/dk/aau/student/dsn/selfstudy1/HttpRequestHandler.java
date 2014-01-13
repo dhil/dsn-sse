@@ -61,11 +61,11 @@ public class HttpRequestHandler implements Runnable {
 			    while ((n = responseStream.read(buffer, 0, buffer.length)) != -1) {
 			    	out.write(buffer, 0, n);
 			    }
-				connection.close();
+				connection.close(); // TODO: remain open for HTTP/1.1
+				System.out.println("DONE!");
 			} catch (Exception e) {
-				// Ignore
-				System.out.println("Error while responding to request: " + e.getMessage());
-				e.printStackTrace(System.out);
+				System.err.println("Error while responding to request: " + e.getMessage());
+				e.printStackTrace(System.err);
 			}
 		}
 	}

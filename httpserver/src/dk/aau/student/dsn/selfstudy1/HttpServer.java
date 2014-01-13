@@ -42,6 +42,7 @@ public class HttpServer implements Runnable {
 	protected ServerSocket initSocket(int port) throws IOException {
 		ServerSocket socket = null;
 		try {
+			// Create new TCP socket
 			socket = new ServerSocket(port);
 			System.out.println("Listening for incoming requests on " + port + "...");
 		} catch (IOException e) {
@@ -63,7 +64,7 @@ public class HttpServer implements Runnable {
 				// Dispatch handler
 				handleRequest(connection);
 			} catch (Exception e) {
-				// Suppress
+				System.err.println("Error: " + e.getMessage());
 			} 
 		}
 	}
@@ -71,6 +72,6 @@ public class HttpServer implements Runnable {
 	protected void handleRequest(Socket connection) {
 		Thread handler = new Thread(new HttpRequestHandler(connection, wwwroot));
 		handler.start();
-		System.out.println("Dispatched.");
+		System.out.println("Dispatched request.");
 	}
 }
