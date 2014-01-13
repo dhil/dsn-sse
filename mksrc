@@ -1,5 +1,5 @@
 #!/bin/bash
-DIR='/home/dh/Development/dsn-sse/twitterapp'
+DIR='./twitterapp'
 EXT='.java'
 FILES=$(find "$DIR" -iname "*$EXT")
 SRCVIEW='restserver.html'
