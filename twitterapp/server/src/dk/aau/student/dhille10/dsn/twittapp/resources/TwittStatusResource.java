@@ -21,9 +21,9 @@ import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 
 import com.sun.jersey.api.NotFoundException;
 
-/*Resource for TwittUser*/
+/*Resource for TwittStatus*/
 
-public class TwittUserResource {
+public class TwittStatusResource {
 
 	@Context
 	UriInfo uriInfo;
@@ -31,7 +31,7 @@ public class TwittUserResource {
 	Request request;
 	String id;
 
-	public TwittUserResource(UriInfo uriInfo, Request request, String id) {
+	public TwittStatusResource(UriInfo uriInfo, Request request, String id) {
 		this.uriInfo = uriInfo;
 		this.request = request;
 		this.id = id;
@@ -39,51 +39,38 @@ public class TwittUserResource {
 
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
-	public TwittUser getUser() {
-		TwittUser tu = TwitterStore.instance.getTuP().get(id);
+	public TwittStatus getStatus() {
+		TwittStatus tu = TwitterStore.instance.getStP().get(id);
 		if(tu==null)
-			throw new NotFoundException("No such TwittUser.");
+			throw new NotFoundException("No such TwittStatus.");
 		return tu;
 	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response putUserDescription(JAXBElement<TwittUser> jaxbMessage) {
-		TwittUser tu = jaxbMessage.getValue();
-		return putUser(tu);
+	public Response putStatusText(JAXBElement<TwittStatus> jaxbMessage) {
+		TwittStatus st = jaxbMessage.getValue();
+		return putStatus(st);
 	}
 
 
-	private Response putUser(TwittUser tu) {
+	private Response putStatus(TwittStatus st) {
 		Response res;
-		if(!tu.getId().equals(id))
-			tu.setId(id);
-		if(TwitterStore.instance.getTuP().containsKey(tu.getId())) {
+		if(!st.getId().equals(id))
+			st.setId(id);
+		if(TwitterStore.instance.getStP().containsKey(st.getId())) {
 			res = Response.noContent().build();
 		} else {
 			res = Response.created(uriInfo.getAbsolutePath()).build();
 		}
-		TwitterStore.instance.getTuP().get(tu.getId()).setDescription(tu.getDescription());
+		TwitterStore.instance.getStP().get(st.getId()).setText(st.getText());
 		return res;
 	}
 
 	@DELETE
-	public Response deleteUser() {
-		if(TwitterStore.instance.getTuP().containsKey(id))
-			TwitterStore.instance.getTuP().remove(id);
+	public Response deleteStatus() {
+		if(TwitterStore.instance.getStP().containsKey(id))
+			TwitterStore.instance.getStP().remove(id);
 		return Response.status(200).build();
 	}
-	
-	@GET
-	@Path("/statuses")
-	@Produces({MediaType.APPLICATION_XML})
-	public List<TwittStatus> getAllTwittStatuses() {
-		List<TwittStatus> sts = new ArrayList<TwittStatus>();
-		for (TwittStatus s : TwitterStore.instance.getStP().values()) {
-			if (s.getUserId().compareTo(this.id) == 0)
-				sts.add(s);
-		}
-		return sts;
-	}
-
 }

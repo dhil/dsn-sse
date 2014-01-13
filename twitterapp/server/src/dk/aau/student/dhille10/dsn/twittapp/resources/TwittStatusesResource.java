@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,10 +24,10 @@ import com.sun.jersey.api.NotFoundException;
 import dk.aau.student.dhille10.dsn.twittapp.models.*;
 import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 
-/*Resource for TwittUsers*/
+/*Resource for TwittStatuses*/
 
-@Path("/twittusers")
-public class TwittUsersResource {
+@Path("/twittstatuses")
+public class TwittStatusesResource {
 	@Context
 	UriInfo uriInfo;
 	@Context
@@ -34,39 +35,35 @@ public class TwittUsersResource {
 
 	@GET
 	@Produces({MediaType.APPLICATION_XML})
-	public List<TwittUser> getUsers() {
-		List<TwittUser> tus = new ArrayList<TwittUser>();
-		tus.addAll(TwitterStore.instance.getTuP().values());
-		return tus; 
+	public List<TwittStatus> getStatuses() {
+		List<TwittStatus> sts = new ArrayList<TwittStatus>();
+		sts.addAll(TwitterStore.instance.getStP().values());
+		return sts; 
 
 	}
 
 	@GET
 	@Path("count")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getTuCount() {
-		int count = TwitterStore.instance.getTuP().size();
+	public String getStCount() {
+		int count = TwitterStore.instance.getStP().size();
 		return String.valueOf(count);
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	public Response newTu(JAXBElement<TwittUser> jaxbMessage) 
+	public Response newSt(JAXBElement<TwittStatus> jaxbMessage) 
 			throws IOException {
 		
-		TwittUser tu = jaxbMessage.getValue();
-		Boolean exists = TwitterStore.instance.getTuP().containsKey(tu.getId());
-		if (exists)
-			return Response.status(202).build();
-		
-		TwitterStore.instance.getTuP().put(tu.getId(), tu);
+		TwittStatus st = jaxbMessage.getValue();
+		TwitterStore.instance.getStP().put(st.getId(), st);
 		
 		return Response.status(201).build();
 	}
 
 	@Path("{id}")
-	public TwittUserResource getMessage(
+	public TwittStatusResource getMessage(
 			@PathParam("id") String id) {
-		return new TwittUserResource(uriInfo, request, id);
+		return new TwittStatusResource(uriInfo, request, id);
 	}
 }
