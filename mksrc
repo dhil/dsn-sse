@@ -1,0 +1,18 @@
+#!/bin/bash
+DIR='/home/dh/Development/dsn-sse/twitterapp'
+EXT='.java'
+FILES=$(find "$DIR" -iname "*$EXT")
+SRCVIEW='restserver.html'
+
+echo "<html>" > $SRCVIEW
+echo "<head><meta charset=\"utf-8\" />" >> $SRCVIEW
+echo "<title>$SRCVIEW</title>" >> $SRCVIEW
+echo "</head>" >> $SRCVIEW
+echo "<body><pre style=\"white-space: pre-wrap; width:550px;\">" >> $SRCVIEW
+for file in $FILES; do
+    echo "=============================================================" >> $SRCVIEW
+    echo " File: $file" >> $SRCVIEW
+    echo "=============================================================" >> $SRCVIEW
+    cat $file >> $SRCVIEW
+done
+echo "</pre></body></html>" >> $SRCVIEW
