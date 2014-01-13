@@ -181,7 +181,7 @@ namespace RESTClient
             Console.Write("Enter user id: ");
             string id = Console.ReadLine();
 
-            string uri = Util.boardUri + "/twittstatuses/user/" + id;
+            string uri = Util.boardUri + "/twittusers/" + id + "/statuses";
 
             XmlDocument doc;
             XmlNodeList xnlist;
@@ -191,8 +191,7 @@ namespace RESTClient
 
             xnlist = doc.SelectNodes("twittStatuses/twittStatus");
 
-            foreach (XmlNode xn in xnlist)
-            {
+            foreach (XmlNode xn in xnlist) {
                 XmlSerializer xs = new XmlSerializer(typeof(TwittStatus), new XmlRootAttribute() { ElementName = "twittStatus" });
                 TwittStatus st = (TwittStatus)xs.Deserialize(new XmlNodeReader(xn));
                 st.printOut();
@@ -255,7 +254,7 @@ namespace RESTClient
             TwittStatus st = (TwittStatus)xs.Deserialize(xr);
             st.text = text;
 
-            RestManager.PutXmlRequest(boardUri + "/twittstatuses", st.toXmlString());
+            RestManager.PutXmlRequest(boardUri + "/twittstatuses/" + id, st.toXmlString());
         }
 
         public static void deleteTwittStatus() {

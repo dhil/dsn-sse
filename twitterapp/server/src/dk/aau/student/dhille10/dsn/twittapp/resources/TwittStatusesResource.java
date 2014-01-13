@@ -24,8 +24,7 @@ import com.sun.jersey.api.NotFoundException;
 import dk.aau.student.dhille10.dsn.twittapp.models.*;
 import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 
-/*Resource for TwittUsers*/
-/*See TwittStatuses*/
+/*Resource for TwittStatuses*/
 
 @Path("/twittstatuses")
 public class TwittStatusesResource {
@@ -41,18 +40,6 @@ public class TwittStatusesResource {
 		sts.addAll(TwitterStore.instance.getStP().values());
 		return sts; 
 
-	}
-	
-	@GET
-	@Produces({MediaType.APPLICATION_XML})
-	@Path("/user/{userid}")
-	public List<TwittStatus> getStatusesByUser(@PathParam("userid") String userid) {
-		List<TwittStatus> sts = new ArrayList<TwittStatus>();
-		for (TwittStatus s : TwitterStore.instance.getStP().values()) {
-			if (s.getUserId().compareTo(userid) == 0)
-				sts.add(s);
-		}
-		return sts;
 	}
 
 	@GET
@@ -78,33 +65,5 @@ public class TwittStatusesResource {
 	public TwittStatusResource getMessage(
 			@PathParam("id") String id) {
 		return new TwittStatusResource(uriInfo, request, id);
-	}
-	
-	
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_XML)
-	public TwittStatus getTwittStatus(@PathParam("id") String id) {
-		if (TwitterStore.instance.getStP().containsKey(id))
-			return TwitterStore.instance.getStP().get(id);
-		else
-			throw new NotFoundException();
-	}
-	
-	@DELETE
-	@Path("{id}")
-	public Response deleteSt(@PathParam("id") String id) {
-		if (TwitterStore.instance.getStP().containsKey(id))
-			TwitterStore.instance.getStP().remove(id);
-		
-		return Response.status(200).build();
-	}
-	
-	@PUT
-	@Consumes(MediaType.APPLICATION_XML)
-	public Response changeStatus(JAXBElement<TwittStatus> jaxbMessage) {
-		TwittStatus st = jaxbMessage.getValue();
-		TwitterStore.instance.getStP().get(st.getId()).setText(st.getText());
-		return Response.status(200).build();
 	}
 }

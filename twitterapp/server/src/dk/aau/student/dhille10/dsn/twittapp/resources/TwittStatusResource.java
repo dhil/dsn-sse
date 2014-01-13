@@ -1,9 +1,13 @@
 package dk.aau.student.dhille10.dsn.twittapp.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -17,8 +21,7 @@ import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 
 import com.sun.jersey.api.NotFoundException;
 
-/*Resource for TwittUser*/
-/*See TwittStatus*/
+/*Resource for TwittStatus*/
 
 public class TwittStatusResource {
 
@@ -65,9 +68,9 @@ public class TwittStatusResource {
 	}
 
 	@DELETE
-	public void deleteStatus() {
-		if(!TwitterStore.instance.getTuP().containsKey(id))
-			throw new NotFoundException("No such TwittStatus.");
-		TwitterStore.instance.getStP().remove(id);
+	public Response deleteStatus() {
+		if(TwitterStore.instance.getStP().containsKey(id))
+			TwitterStore.instance.getStP().remove(id);
+		return Response.status(200).build();
 	}
 }

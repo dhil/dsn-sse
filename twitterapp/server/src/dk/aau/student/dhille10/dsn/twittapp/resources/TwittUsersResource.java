@@ -24,7 +24,6 @@ import dk.aau.student.dhille10.dsn.twittapp.models.*;
 import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 
 /*Resource for TwittUsers*/
-/*See TwittStatuses*/
 
 @Path("/twittusers")
 public class TwittUsersResource {
@@ -40,16 +39,6 @@ public class TwittUsersResource {
 		tus.addAll(TwitterStore.instance.getTuP().values());
 		return tus; 
 
-	}
-	
-	@GET
-	@Path("{id}")
-	@Produces({MediaType.APPLICATION_XML})
-	public TwittUser getUser(@PathParam("id") String id) {
-		if (TwitterStore.instance.getTuP().containsKey(id))
-			return TwitterStore.instance.getTuP().get(id);
-		else
-			throw new NotFoundException();
 	}
 
 	@GET
@@ -79,14 +68,5 @@ public class TwittUsersResource {
 	public TwittUserResource getMessage(
 			@PathParam("id") String id) {
 		return new TwittUserResource(uriInfo, request, id);
-	}
-	
-	@DELETE
-	@Path("{id}")
-	public Response deleteTu(@PathParam("id") String id) {
-		if (TwitterStore.instance.getTuP().containsKey(id))
-			TwitterStore.instance.getTuP().remove(id);
-		
-		return Response.status(200).build();
 	}
 }

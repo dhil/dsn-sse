@@ -1,9 +1,13 @@
 package dk.aau.student.dhille10.dsn.twittapp.resources;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -18,7 +22,6 @@ import dk.aau.student.dhille10.dsn.twittapp.storage.*;
 import com.sun.jersey.api.NotFoundException;
 
 /*Resource for TwittUser*/
-/*See TwittStatus*/
 
 public class TwittUserResource {
 
@@ -65,10 +68,22 @@ public class TwittUserResource {
 	}
 
 	@DELETE
-	public void deleteUser() {
-		if(!TwitterStore.instance.getTuP().containsKey(id))
-			throw new NotFoundException("No such TwittUser.");
-		TwitterStore.instance.getTuP().remove(id);
+	public Response deleteUser() {
+		if(TwitterStore.instance.getTuP().containsKey(id))
+			TwitterStore.instance.getTuP().remove(id);
+		return Response.status(200).build();
+	}
+	
+	@GET
+	@Path("/statuses")
+	@Produces({MediaType.APPLICATION_XML})
+	public List<TwittStatus> getAllTwittStatuses() {
+		List<TwittStatus> sts = new ArrayList<TwittStatus>();
+		for (TwittStatus s : TwitterStore.instance.getStP().values()) {
+			if (s.getUserId().compareTo(this.id) == 0)
+				sts.add(s);
+		}
+		return sts;
 	}
 
 }
